@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "UtilsKit",
+        "repositoryURL": "https://github.com/rgmc95/UtilsKit.git",
+        "state": {
+          "branch": null,
+          "revision": "7f00d7630751a75547539784b2a7a817efb8f10a",
+          "version": "2.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
