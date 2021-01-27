@@ -162,20 +162,29 @@ extension CoreDataManager {
 extension CoreDataManager {
     
     // Fetch with predicate
-    func fetch<T: NSManagedObject>(entity: String, with predicate: NSPredicate? = nil) -> [T] {
+    func fetch<T: NSManagedObject>(entity: String,
+                                   with predicate: NSPredicate? = nil,
+                                   sortedKey: String? = nil,
+                                   ascending: Bool? = true) -> [T] {
         var objects: [T]?
         
         try? self.performAndWait { [weak self] in
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity)
             fetchRequest.predicate = predicate
+            if let sortedKey = sortedKey, let ascending = ascending {
+                let sortDescriptor = NSSortDescriptor(key: sortedKey, ascending: ascending)
+                fetchRequest.sortDescriptors = [sortDescriptor]
+            }
             objects = (try? self?.getContext().fetch(fetchRequest)) as? [T]
         }
         
         return objects ?? []
     }
     
-    func fetch<T: CoreDataModel>(predicate: NSPredicate? = nil) -> [T] {
-        self.fetch(entity: T.entityName, with: predicate)
+    func fetch<T: CoreDataModel>(predicate: NSPredicate? = nil,
+                                 sortedKey: String? = nil,
+                                 ascending: Bool? = true) -> [T] {
+        self.fetch(entity: T.entityName, with: predicate, sortedKey: sortedKey, ascending: ascending)
     }
     
     // Fetch with primary key

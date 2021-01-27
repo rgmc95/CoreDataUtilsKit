@@ -79,8 +79,10 @@ extension CoreDataModel {
      - parameter predicate: a predicate or nil
      - returns: all found entities
      */
-    public static func getAll(predicate: NSPredicate? = nil) -> [Self] {
-        CoreDataManager.default.fetch(predicate: predicate)
+    public static func getAll(predicate: NSPredicate? = nil,
+                              sortBy:String? = nil,
+                              ascending:Bool? = true) -> [Self] {
+        CoreDataManager.default.fetch(predicate: predicate, sortedKey: sortBy, ascending: ascending)
     }
     
     /**
