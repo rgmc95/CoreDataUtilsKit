@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
       LICENSE
   }
   s.homepage = "https://github.com/rgmc95/CoreDataUtilsKit"
-  s.author = "Romain Gjura & Michael Coqueret"
+  s.author = "Romain Gjura & Michael Coqueret & David Douard"
   s.summary = "Swift CoreData Utilities"
   s.swift_version = '5.3'
-  s.source =  { :git => "https://github.com/rgmc95/CoreDataUtilsKit.git", :tag => "1.1" }
+  s.source =  { :git => "https://github.com/rgmc95/CoreDataUtilsKit.git", :tag => "1.1.0" }
   s.default_subspec = 'Core'
 
   s.ios.deployment_target = '10.0'
