@@ -160,7 +160,7 @@ extension CoreDataManager {
 
 // MARK: - Core Data FETCH requests
 extension CoreDataManager {
-    
+
     // Fetch with predicate
     func fetch<T: NSManagedObject>(entity: String,
                                    with predicate: NSPredicate? = nil,
@@ -189,9 +189,9 @@ extension CoreDataManager {
     
     // Fetch with primary key
     func fetch<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
+
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: T.entityName)
         fetchRequest.predicate = T.predicate(with: primaryKey)
-        
         return (try? self.getContext().fetch(fetchRequest)) as? [T] ?? []
     }
     
@@ -231,10 +231,9 @@ extension CoreDataManager {
         try? self.performAndWait { [weak self] in
             guard let self = self, let context: NSManagedObjectContext = try? self.getContext() else { return }
             object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T
-            object?.setValue(primaryKey, forKey: T.primaryKey)
+            object?.setValue(primaryKey.value, forKey: T.primaryKey)
         }
-       
-        
+
         return object
     }
 }

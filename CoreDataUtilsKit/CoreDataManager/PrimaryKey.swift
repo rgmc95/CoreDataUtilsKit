@@ -9,29 +9,23 @@
 import Foundation
 
 internal func primaryKeyfrom(_ value: Any?) -> PrimaryKey? {
-    if let value: String = value as? String { return value }
-    if let value: Int = value as? Int { return value }
-    return nil
+    var output:PrimaryKey? = nil
+    if let value = value as? String { output = PrimaryKey.string(value) }
+    if let value = value as? Int { output = PrimaryKey.int(value) }
+    assert(output != nil, "your primary Key must be eather an INT or a STRING")
+    return output
 }
 
-/**
- Protocol to transorm a type into a primary key.
- Used in `CoreDataManager` and `CoreDataModel` as the primary key of the entity
- */
-public protocol PrimaryKey: CVarArg {
-    var type: String { get }
-}
+enum PrimaryKey {
+    case string(String)
+    case int(Int)
 
-extension String: PrimaryKey {
-    /**
-     Primary key value for type `String`
-     */
-    public var type: String { "%@" }
-}
-
-extension Int: PrimaryKey {
-    /**
-     Primary key value for type `Int`
-     */
-    public var type: String { "%d" }
+    var value: String {
+        switch self {
+        case .int(let cValue):
+            return String(cValue)
+        case .string(let cValue):
+            return cValue
+        }
+    }
 }
