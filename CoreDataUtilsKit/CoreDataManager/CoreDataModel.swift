@@ -29,8 +29,12 @@ extension CoreDataModel {
     /**
      Get Value of current entity  primary key
      */
-    var primaryKey: PrimaryKeyType? {
-        primaryKeyfrom(self.value(forKey: Self.primaryKey))
+    var primaryKey: PrimaryKey? {
+        var output:PrimaryKey? = nil
+        if let value = value(forKey: Self.primaryKey) as? String { output = value }
+        if let value = value(forKey: Self.primaryKey) as? Int { output = value }
+        assert(output != nil, "your primary Key must be eather an INT or a STRING")
+        return output
     }
 }
 
@@ -50,8 +54,8 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity
      - returns: a predicate based on the given primary key
      */
-    static func predicate(with primaryKey: PrimaryKeyType) -> NSPredicate {
-        return NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.value)
+    static func predicate(with primaryKey: PrimaryKey) -> NSPredicate {
+        return NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.stringValue)
     }
     
     // MARK: Core Data Model GET
@@ -70,8 +74,7 @@ extension CoreDataModel {
      - returns: the instance of the found or created entity
      */
     public static func findOrCreate(with primaryKey: PrimaryKey?) -> Self? {
-        let value = primaryKeyfrom(primaryKey)
-        guard let typedKey = value else { return nil }
+        guard let typedKey = primaryKey else { return nil }
         return CoreDataManager.default.fetchOrCreate(with: typedKey)
     }
     
@@ -92,9 +95,8 @@ extension CoreDataModel {
      - returns: the instance of the found entity or nil if not found
      */
     public static func get(with primaryKey: PrimaryKey?) -> Self? {
-        let value = primaryKeyfrom(primaryKey)
-        guard let myPrimaryKey = value else { return nil }
-        return CoreDataManager.default.fetch(with: myPrimaryKey).first
+        guard let typedKey = primaryKey else { return nil }
+        return CoreDataManager.default.fetch(with: typedKey).first
     }
 
     /**
@@ -103,10 +105,7 @@ extension CoreDataModel {
      - returns: all found entities
      */
     public static func getAll(with primaryKeys: [PrimaryKey]) -> [Self] {
-        let typedKeys = primaryKeys.map { oneValue in
-            return primaryKeyfrom(oneValue)
-        }
-        return self.getAll(predicate: NSPredicate(format: "\(Self.primaryKey) IN %@", typedKeys.map { $0?.value }))
+        return self.getAll(predicate: NSPredicate(format: "\(Self.primaryKey) IN %@", primaryKeys))
     }
     
     /**
@@ -115,8 +114,7 @@ extension CoreDataModel {
      - returns: the remaining entities
      */
     @discardableResult public static func delete(with primaryKey: PrimaryKey) -> [Self] {
-        guard let typedValue = primaryKeyfrom(primaryKey) else { return [] }
-        return CoreDataManager.default.delete(with: typedValue)
+        return CoreDataManager.default.delete(with: primaryKey)
     }
     
     /**
@@ -134,9 +132,6 @@ extension CoreDataModel {
      - returns: all remaining entities
      */
     @discardableResult public static func deleteAll(except primaryKeys: [PrimaryKey]) -> [Self] {
-        let typedKeys = primaryKeys.map { oneValue in
-            return primaryKeyfrom(oneValue)
-        }
-        return self.deleteAll(predicate: NSPredicate(format: "NOT \(Self.primaryKey) IN %@", typedKeys.map { $0?.value }))
+        return self.deleteAll(predicate: NSPredicate(format: "NOT \(Self.primaryKey) IN %@", primaryKeys))
     }
 }

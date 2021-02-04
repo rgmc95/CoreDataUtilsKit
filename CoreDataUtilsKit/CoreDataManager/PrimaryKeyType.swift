@@ -8,38 +8,35 @@
 
 import Foundation
 
-internal func primaryKeyfrom(_ value: Any?) -> PrimaryKeyType? {
-    var output:PrimaryKeyType? = nil
-    if let value = value as? String { output = PrimaryKeyType.string(value) }
-    if let value = value as? Int { output = PrimaryKeyType.int(value) }
-    assert(output != nil, "your primary Key must be eather an INT or a STRING")
-    return output
-}
-
-enum PrimaryKeyType {
-    case string(String)
-    case int(Int)
-
-    var value: String {
-        switch self {
-        case .int(let cValue):
-            return String(cValue)
-        case .string(let cValue):
-            return cValue
-        }
-    }
-}
-
 /**
- this protocole is used to limit fetches and creation with id of type INT or String (nothing else)
+ this protocole is used to limit fetches and creation with attribute of type INT or String (nothing else)
  it's like a type Alias for 2 type (string and int)
  */
 public protocol PrimaryKey {
-
+    
 }
+
 extension String: PrimaryKey {
 
 }
 extension Int: PrimaryKey {
 
+}
+
+extension PrimaryKey {
+    var stringValue: String {
+        var output:String? = nil
+        if let value = self as? String { output = value }
+        if let value = self as? Int { output = String(value) }
+        assert(output != nil, "your primary Key must be eather an INT or a STRING")
+        return output!
+    }
+
+    var intValue: Int {
+        var output:Int? = nil
+        if let value = self as? String { output = Int(value) }
+        if let value = self as? Int { output = value }
+        assert(output != nil, "your primary Key must be eather an INT or a STRING")
+        return output!
+    }
 }

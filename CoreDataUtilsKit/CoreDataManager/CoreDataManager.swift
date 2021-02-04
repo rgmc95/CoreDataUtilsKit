@@ -188,7 +188,7 @@ extension CoreDataManager {
     }
     
     // Fetch with primary key
-    func fetch<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> [T] {
+    func fetch<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: T.entityName)
         fetchRequest.predicate = T.predicate(with: primaryKey)
@@ -205,7 +205,7 @@ extension CoreDataManager {
     }
     
     // Fetch first with primary key
-    func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> T? {
+    func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
         self.fetch(with: primaryKey).first
     }
     
@@ -221,7 +221,7 @@ extension CoreDataManager {
         return object
     }
     
-    func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> T? {
+    func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
         if let object: T = self.fetch(with: primaryKey).first {
             return object
         }
@@ -231,7 +231,14 @@ extension CoreDataManager {
         try? self.performAndWait { [weak self] in
             guard let self = self, let context: NSManagedObjectContext = try? self.getContext() else { return }
             object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T
-            object?.setValue(primaryKey.value, forKey: T.primaryKey)
+            // Input must Be INT or STRING, we don't managed other format
+            let entityDescription = object?.entity
+            let primaryKeyAttribute = entityDescription?.attributesByName[T.primaryKey]
+            if primaryKeyAttribute?.attributeType == .stringAttributeType {
+                object?.setValue(primaryKey.stringValue, forKey: T.primaryKey)
+            } else {
+                object?.setValue(primaryKey.intValue, forKey: T.primaryKey)
+            }
         }
 
         return object
@@ -261,7 +268,7 @@ extension CoreDataManager {
         }
     }
     
-    func delete<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> [T] {
+    func delete<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
         if let object: T = fetchOrCreate(with: primaryKey) {
             do {
                 try delete(object: object)
