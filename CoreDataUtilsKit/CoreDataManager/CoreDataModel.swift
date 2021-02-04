@@ -29,7 +29,7 @@ extension CoreDataModel {
     /**
      Get Value of current entity  primary key
      */
-    var primaryKey: PrimaryKey? {
+    var primaryKey: PrimaryKeyType? {
         primaryKeyfrom(self.value(forKey: Self.primaryKey))
     }
 }
@@ -50,7 +50,7 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity
      - returns: a predicate based on the given primary key
      */
-    static func predicate(with primaryKey: PrimaryKey) -> NSPredicate {
+    static func predicate(with primaryKey: PrimaryKeyType) -> NSPredicate {
         return NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.value)
     }
     
@@ -69,7 +69,7 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity to find
      - returns: the instance of the found or created entity
      */
-    public static func findOrCreate(with primaryKey: Any?) -> Self? {
+    public static func findOrCreate(with primaryKey: PrimaryKey?) -> Self? {
         let value = primaryKeyfrom(primaryKey)
         guard let typedKey = value else { return nil }
         return CoreDataManager.default.fetchOrCreate(with: typedKey)
@@ -91,7 +91,7 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity to find
      - returns: the instance of the found entity or nil if not found
      */
-    public static func get(with primaryKey: Any?) -> Self? {
+    public static func get(with primaryKey: PrimaryKey?) -> Self? {
         let value = primaryKeyfrom(primaryKey)
         guard let myPrimaryKey = value else { return nil }
         return CoreDataManager.default.fetch(with: myPrimaryKey).first
@@ -102,7 +102,7 @@ extension CoreDataModel {
      - parameter primaryKeys: primary keys of the entities to find
      - returns: all found entities
      */
-    public static func getAll(with primaryKeys: [Any]) -> [Self] {
+    public static func getAll(with primaryKeys: [PrimaryKey]) -> [Self] {
         let typedKeys = primaryKeys.map { oneValue in
             return primaryKeyfrom(oneValue)
         }
@@ -114,7 +114,7 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity to delete
      - returns: the remaining entities
      */
-    @discardableResult public static func delete(with primaryKey: Any) -> [Self] {
+    @discardableResult public static func delete(with primaryKey: PrimaryKey) -> [Self] {
         guard let typedValue = primaryKeyfrom(primaryKey) else { return [] }
         return CoreDataManager.default.delete(with: typedValue)
     }
@@ -133,7 +133,7 @@ extension CoreDataModel {
      - parameter except: primary keys of the entities to keep
      - returns: all remaining entities
      */
-    @discardableResult public static func deleteAll(except primaryKeys: [Any]) -> [Self] {
+    @discardableResult public static func deleteAll(except primaryKeys: [PrimaryKey]) -> [Self] {
         let typedKeys = primaryKeys.map { oneValue in
             return primaryKeyfrom(oneValue)
         }

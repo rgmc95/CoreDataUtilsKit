@@ -188,7 +188,7 @@ extension CoreDataManager {
     }
     
     // Fetch with primary key
-    func fetch<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
+    func fetch<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> [T] {
 
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: T.entityName)
         fetchRequest.predicate = T.predicate(with: primaryKey)
@@ -205,7 +205,7 @@ extension CoreDataManager {
     }
     
     // Fetch first with primary key
-    func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
+    func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> T? {
         self.fetch(with: primaryKey).first
     }
     
@@ -221,7 +221,7 @@ extension CoreDataManager {
         return object
     }
     
-    func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
+    func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> T? {
         if let object: T = self.fetch(with: primaryKey).first {
             return object
         }
@@ -261,7 +261,7 @@ extension CoreDataManager {
         }
     }
     
-    func delete<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
+    func delete<T: CoreDataModel>(with primaryKey: PrimaryKeyType) -> [T] {
         if let object: T = fetchOrCreate(with: primaryKey) {
             do {
                 try delete(object: object)
