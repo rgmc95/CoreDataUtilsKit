@@ -30,7 +30,7 @@ extension CoreDataModel {
      Get Value of current entity  primary key
      */
     var primaryKey: PrimaryKey? {
-        var output:PrimaryKey? = nil
+        var output: PrimaryKey?
         if let value = value(forKey: Self.primaryKey) as? String { output = value }
         if let value = value(forKey: Self.primaryKey) as? Int { output = value }
         assert(output != nil, "your primary Key must be eather an INT or a STRING")
@@ -55,7 +55,7 @@ extension CoreDataModel {
      - returns: a predicate based on the given primary key
      */
     static func predicate(with primaryKey: PrimaryKey) -> NSPredicate {
-        return NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.stringValue)
+        NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.stringValue ?? "")
     }
     
     // MARK: Core Data Model GET
@@ -84,8 +84,8 @@ extension CoreDataModel {
      - returns: all found entities
      */
     public static func getAll(predicate: NSPredicate? = nil,
-                              sortBy:String? = nil,
-                              ascending:Bool? = true) -> [Self] {
+                              sortBy: String? = nil,
+                              ascending: Bool? = true) -> [Self] {
         CoreDataManager.default.fetch(predicate: predicate, sortedKey: sortBy, ascending: ascending)
     }
     
@@ -105,7 +105,7 @@ extension CoreDataModel {
      - returns: all found entities
      */
     public static func getAll(with primaryKeys: [PrimaryKey]) -> [Self] {
-        return self.getAll(predicate: NSPredicate(format: "\(Self.primaryKey) IN %@", primaryKeys))
+        self.getAll(predicate: NSPredicate(format: "\(Self.primaryKey) IN %@", primaryKeys))
     }
     
     /**
@@ -114,7 +114,7 @@ extension CoreDataModel {
      - returns: the remaining entities
      */
     @discardableResult public static func delete(with primaryKey: PrimaryKey) -> [Self] {
-        return CoreDataManager.default.delete(with: primaryKey)
+        CoreDataManager.default.delete(with: primaryKey)
     }
     
     /**
@@ -123,7 +123,7 @@ extension CoreDataModel {
      - returns: all remaining entities
      */
     @discardableResult public static func deleteAll(predicate: NSPredicate? = nil) -> [Self] {
-        return CoreDataManager.default.delete(predicate: predicate)
+        CoreDataManager.default.delete(predicate: predicate)
     }
     
     /**
@@ -132,6 +132,6 @@ extension CoreDataModel {
      - returns: all remaining entities
      */
     @discardableResult public static func deleteAll(except primaryKeys: [PrimaryKey]) -> [Self] {
-        return self.deleteAll(predicate: NSPredicate(format: "NOT \(Self.primaryKey) IN %@", primaryKeys))
+        self.deleteAll(predicate: NSPredicate(format: "NOT \(Self.primaryKey) IN %@", primaryKeys))
     }
 }

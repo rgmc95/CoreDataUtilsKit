@@ -3,23 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		273AB165272E8E980065E224 /* UtilsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 273AB164272E8E980065E224 /* UtilsKit */; };
+		273AB167272E8F3B0065E224 /* PrimaryKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273AB166272E8F3B0065E224 /* PrimaryKey.swift */; };
 		279F932E24B8BABB00349413 /* CoreDataKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 279F932C24B8BABB00349413 /* CoreDataKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		279F933F24B8BB0300349413 /* Thread+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933524B8BB0300349413 /* Thread+Id.swift */; };
 		279F934024B8BB0300349413 /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933724B8BB0300349413 /* CoreDataError.swift */; };
 		279F934124B8BB0300349413 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933924B8BB0300349413 /* CoreDataManager.swift */; };
 		279F934224B8BB0300349413 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933A24B8BB0300349413 /* CoreDataModel.swift */; };
-		279F934324B8BB0300349413 /* PrimaryKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933B24B8BB0300349413 /* PrimaryKey.swift */; };
 		279F934424B8BB0300349413 /* DataListenerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933D24B8BB0300349413 /* DataListenerDelegate.swift */; };
 		279F934524B8BB0300349413 /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279F933E24B8BB0300349413 /* Listener.swift */; };
-		F1F8251B669EE2495EBB85C3 /* Pods_CoreDataUtilsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDAC3EFA8BFF3655962EADC3 /* Pods_CoreDataUtilsKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		17D45236EE618D3787E5219E /* Pods-CoreDataUtilsKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataUtilsKit.debug.xcconfig"; path = "Target Support Files/Pods-CoreDataUtilsKit/Pods-CoreDataUtilsKit.debug.xcconfig"; sourceTree = "<group>"; };
+		273AB166272E8F3B0065E224 /* PrimaryKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryKey.swift; sourceTree = "<group>"; };
 		279F932924B8BABB00349413 /* CoreDataUtilsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataUtilsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		279F932C24B8BABB00349413 /* CoreDataKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataKit.h; sourceTree = "<group>"; };
 		279F932D24B8BABB00349413 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -27,11 +27,8 @@
 		279F933724B8BB0300349413 /* CoreDataError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		279F933924B8BB0300349413 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		279F933A24B8BB0300349413 /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
-		279F933B24B8BB0300349413 /* PrimaryKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryKey.swift; sourceTree = "<group>"; };
 		279F933D24B8BB0300349413 /* DataListenerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataListenerDelegate.swift; sourceTree = "<group>"; };
 		279F933E24B8BB0300349413 /* Listener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
-		300F3CC01092F165ECAC9D11 /* Pods-CoreDataUtilsKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataUtilsKit.release.xcconfig"; path = "Target Support Files/Pods-CoreDataUtilsKit/Pods-CoreDataUtilsKit.release.xcconfig"; sourceTree = "<group>"; };
-		BDAC3EFA8BFF3655962EADC3 /* Pods_CoreDataUtilsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreDataUtilsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1F8251B669EE2495EBB85C3 /* Pods_CoreDataUtilsKit.framework in Frameworks */,
+				273AB165272E8E980065E224 /* UtilsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +48,6 @@
 			children = (
 				279F932B24B8BABB00349413 /* CoreDataUtilsKit */,
 				279F932A24B8BABB00349413 /* Products */,
-				BF45AB79B88F81D7DB5FCC71 /* Pods */,
-				7FB5A18ED6C78A7430675353 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,9 +91,9 @@
 		279F933824B8BB0300349413 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
+				273AB166272E8F3B0065E224 /* PrimaryKey.swift */,
 				279F933924B8BB0300349413 /* CoreDataManager.swift */,
 				279F933A24B8BB0300349413 /* CoreDataModel.swift */,
-				279F933B24B8BB0300349413 /* PrimaryKey.swift */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -110,23 +105,6 @@
 				279F933E24B8BB0300349413 /* Listener.swift */,
 			);
 			path = Listener;
-			sourceTree = "<group>";
-		};
-		7FB5A18ED6C78A7430675353 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BDAC3EFA8BFF3655962EADC3 /* Pods_CoreDataUtilsKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BF45AB79B88F81D7DB5FCC71 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				17D45236EE618D3787E5219E /* Pods-CoreDataUtilsKit.debug.xcconfig */,
-				300F3CC01092F165ECAC9D11 /* Pods-CoreDataUtilsKit.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,7 +125,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 279F933124B8BABB00349413 /* Build configuration list for PBXNativeTarget "CoreDataUtilsKit" */;
 			buildPhases = (
-				4FC207E5DC9D3261A0D2A3EC /* [CP] Check Pods Manifest.lock */,
 				279F932424B8BABB00349413 /* Headers */,
 				279F932524B8BABB00349413 /* Sources */,
 				279F932624B8BABB00349413 /* Frameworks */,
@@ -159,6 +136,9 @@
 			dependencies = (
 			);
 			name = CoreDataUtilsKit;
+			packageProductDependencies = (
+				273AB164272E8E980065E224 /* UtilsKit */,
+			);
 			productName = CoreDataKit;
 			productReference = 279F932924B8BABB00349413 /* CoreDataUtilsKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -186,6 +166,9 @@
 				Base,
 			);
 			mainGroup = 279F931F24B8BABB00349413;
+			packageReferences = (
+				273AB163272E8E980065E224 /* XCRemoteSwiftPackageReference "UtilsKit" */,
+			);
 			productRefGroup = 279F932A24B8BABB00349413 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -222,29 +205,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint not installed\"\nfi\n";
-		};
-		4FC207E5DC9D3261A0D2A3EC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CoreDataUtilsKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint; then\n    swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -255,10 +216,10 @@
 			files = (
 				279F934424B8BB0300349413 /* DataListenerDelegate.swift in Sources */,
 				279F934124B8BB0300349413 /* CoreDataManager.swift in Sources */,
-				279F934324B8BB0300349413 /* PrimaryKey.swift in Sources */,
 				279F933F24B8BB0300349413 /* Thread+Id.swift in Sources */,
 				279F934524B8BB0300349413 /* Listener.swift in Sources */,
 				279F934224B8BB0300349413 /* CoreDataModel.swift in Sources */,
+				273AB167272E8F3B0065E224 /* PrimaryKey.swift in Sources */,
 				279F934024B8BB0300349413 /* CoreDataError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,7 +351,6 @@
 		};
 		279F933224B8BABB00349413 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17D45236EE618D3787E5219E /* Pods-CoreDataUtilsKit.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -415,7 +375,6 @@
 		};
 		279F933324B8BABB00349413 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 300F3CC01092F165ECAC9D11 /* Pods-CoreDataUtilsKit.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -460,6 +419,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		273AB163272E8E980065E224 /* XCRemoteSwiftPackageReference "UtilsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rgmc95/UtilsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		273AB164272E8E980065E224 /* UtilsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 273AB163272E8E980065E224 /* XCRemoteSwiftPackageReference "UtilsKit" */;
+			productName = UtilsKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 279F932024B8BABB00349413 /* Project object */;
 }
