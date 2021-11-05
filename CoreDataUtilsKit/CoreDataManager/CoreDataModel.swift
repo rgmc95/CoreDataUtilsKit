@@ -29,10 +29,10 @@ extension CoreDataModel {
     /**
      Get Value of current entity  primary key
      */
-    var primaryKey: PrimaryKey? {
+    internal  var primaryKey: PrimaryKey? {
         var output: PrimaryKey?
-        if let value = value(forKey: Self.primaryKey) as? String { output = value }
-        if let value = value(forKey: Self.primaryKey) as? Int { output = value }
+        if let value: String = value(forKey: Self.primaryKey) as? String { output = value }
+        if let value: Int = value(forKey: Self.primaryKey) as? Int { output = value }
         assert(output != nil, "your primary Key must be eather an INT or a STRING")
         return output
     }
@@ -54,7 +54,7 @@ extension CoreDataModel {
      - parameter primaryKey: primary key of the entity
      - returns: a predicate based on the given primary key
      */
-    static func predicate(with primaryKey: PrimaryKey) -> NSPredicate {
+    internal static func predicate(with primaryKey: PrimaryKey) -> NSPredicate {
         NSPredicate(format: "\(Self.primaryKey) = %@", primaryKey.stringValue ?? "")
     }
     

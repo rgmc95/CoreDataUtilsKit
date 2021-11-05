@@ -112,7 +112,7 @@ extension CoreDataManager {
         newContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         self.backgroundContexts[token] = newContext
-
+        
         return newContext
     }
     
@@ -122,7 +122,7 @@ extension CoreDataManager {
      */
     public func save(purge: Bool = true) throws {
         guard let persistentContainer = self.persistentContainer else { throw CoreDataError.noPersistentContainer }
-
+        
         var mainError: Error?
         let isMainContext: Bool = persistentContainer.viewContext == (try self.getContext())
         
@@ -160,18 +160,18 @@ extension CoreDataManager {
 
 // MARK: - Core Data FETCH requests
 extension CoreDataManager {
-
+    
     // Fetch with predicate
-    func fetch<T: NSManagedObject>(entity: String,
-                                   with predicate: NSPredicate? = nil,
-                                   sortedKey: String? = nil,
-                                   ascending: Bool? = true) -> [T] {
+    internal func fetch<T: NSManagedObject>(entity: String,
+                                            with predicate: NSPredicate? = nil,
+                                            sortedKey: String? = nil,
+                                            ascending: Bool? = true) -> [T] {
         var objects: [T]?
         
         try? self.performAndWait { [weak self] in
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entity)
             fetchRequest.predicate = predicate
-            if let sortedKey = sortedKey, let ascending = ascending {
+            if let sortedKey: String = sortedKey, let ascending: Bool = ascending {
                 let sortDescriptor = NSSortDescriptor(key: sortedKey, ascending: ascending)
                 fetchRequest.sortDescriptors = [sortDescriptor]
             }
@@ -181,36 +181,36 @@ extension CoreDataManager {
         return objects ?? []
     }
     
-    func fetch<T: CoreDataModel>(predicate: NSPredicate? = nil,
-                                 sortedKey: String? = nil,
-                                 ascending: Bool? = true) -> [T] {
+    internal func fetch<T: CoreDataModel>(predicate: NSPredicate? = nil,
+                                          sortedKey: String? = nil,
+                                          ascending: Bool? = true) -> [T] {
         self.fetch(entity: T.entityName, with: predicate, sortedKey: sortedKey, ascending: ascending)
     }
     
     // Fetch with primary key
-    func fetch<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
-
+    internal func fetch<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
+        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: T.entityName)
         fetchRequest.predicate = T.predicate(with: primaryKey)
         return (try? self.getContext().fetch(fetchRequest)) as? [T] ?? []
     }
     
     // Fetch first with predicate
-    func fetchFirst<T: NSManagedObject>(entity: String, with predicate: NSPredicate? = nil) -> T? {
+    internal func fetchFirst<T: NSManagedObject>(entity: String, with predicate: NSPredicate? = nil) -> T? {
         self.fetch(entity: entity, with: predicate).first
     }
     
-    func fetchFirst<T: CoreDataModel>(predicate: NSPredicate? = nil) -> T? {
+    internal func fetchFirst<T: CoreDataModel>(predicate: NSPredicate? = nil) -> T? {
         self.fetchFirst(entity: T.entityName, with: predicate)
     }
     
     // Fetch first with primary key
-    func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
+    internal func fetchFirst<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
         self.fetch(with: primaryKey).first
     }
     
     // Create
-    func create<T: CoreDataModel>() -> T? {
+    internal func create<T: CoreDataModel>() -> T? {
         var object: T?
         
         try? self.performAndWait { [weak self] in
@@ -221,7 +221,7 @@ extension CoreDataManager {
         return object
     }
     
-    func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
+    internal func fetchOrCreate<T: CoreDataModel>(with primaryKey: PrimaryKey) -> T? {
         if let object: T = self.fetch(with: primaryKey).first {
             return object
         }
@@ -232,15 +232,15 @@ extension CoreDataManager {
             guard let self = self, let context: NSManagedObjectContext = try? self.getContext() else { return }
             object = NSEntityDescription.insertNewObject(forEntityName: T.entityName, into: context) as? T
             // Input must Be INT or STRING, we don't managed other format
-            let entityDescription = object?.entity
-            let primaryKeyAttribute = entityDescription?.attributesByName[T.primaryKey]
+            let entityDescription: NSEntityDescription? = object?.entity
+            let primaryKeyAttribute: NSAttributeDescription? = entityDescription?.attributesByName[T.primaryKey]
             if primaryKeyAttribute?.attributeType == .stringAttributeType {
                 object?.setValue(primaryKey.stringValue, forKey: T.primaryKey)
             } else {
                 object?.setValue(primaryKey.intValue, forKey: T.primaryKey)
             }
         }
-
+        
         return object
     }
 }
@@ -262,13 +262,13 @@ extension CoreDataManager {
     }
     
     // Delete one object
-    func delete<T: NSManagedObject>(object: T) throws {
+    internal func delete<T: NSManagedObject>(object: T) throws {
         try self.performAndWait { [weak self] in
             try? self?.getContext().delete(object)
         }
     }
     
-    func delete<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
+    internal func delete<T: CoreDataModel>(with primaryKey: PrimaryKey) -> [T] {
         if let object: T = fetchOrCreate(with: primaryKey) {
             do {
                 try delete(object: object)
@@ -280,7 +280,7 @@ extension CoreDataManager {
     }
     
     // Delete with predicate
-    func delete<T: NSManagedObject>(entity: String, with predicate: NSPredicate? = nil) -> [T] {
+    internal func delete<T: NSManagedObject>(entity: String, with predicate: NSPredicate? = nil) -> [T] {
         let objects: [T] = fetch(entity: entity, with: predicate)
         
         objects.forEach { [weak self] in try? self?.getContext().delete($0) }
@@ -288,7 +288,7 @@ extension CoreDataManager {
         return fetch(entity: entity)
     }
     
-    func delete<T: CoreDataModel>(predicate: NSPredicate? = nil) -> [T] {
+    internal func delete<T: CoreDataModel>(predicate: NSPredicate? = nil) -> [T] {
         self.delete(entity: T.entityName, with: predicate)
     }
     
@@ -297,7 +297,7 @@ extension CoreDataManager {
      */
     public func dropDatabase() throws {
         guard let persistentContainer = self.persistentContainer else { throw CoreDataError.noPersistentContainer }
-
+        
         persistentContainer.managedObjectModel.entities.forEach { [weak self] entity in
             guard let entityName: String = entity.name else { return }
             
