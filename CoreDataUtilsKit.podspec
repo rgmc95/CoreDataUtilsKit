@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'CoreDataUtilsKit'
-  s.version = '1.1'
+  s.version = '1.1.1'
   s.license = {
     :type => 'Copyright',
     :text => <<-LICENSE
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author = "Romain Gjura & Michael Coqueret & David Douard"
   s.summary = "Swift CoreData Utilities"
   s.swift_version = '5.3'
-  s.source =  { :git => "https://github.com/rgmc95/CoreDataUtilsKit.git", :tag => "1.1.0" }
+  s.source =  { :git => "https://github.com/rgmc95/CoreDataUtilsKit.git", :tag => "1.1.1" }
   s.default_subspec = 'Core'
 
   s.ios.deployment_target = '12.0'
