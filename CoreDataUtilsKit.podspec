@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source =  { :git => "https://github.com/rgmc95/CoreDataUtilsKit.git", :tag => "1.1.0" }
   s.default_subspec = 'Core'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
 
   s.subspec 'Core' do |core|
     core.dependency "UtilsKit", '~> 2.0'
