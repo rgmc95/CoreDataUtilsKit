@@ -7,8 +7,14 @@
 //
 import Foundation
 import CoreData
-import UIKit
+
+#if canImport(UtilsKitCore)
+import UtilsKitCore
+#endif
+
+#if canImport(UtilsKit)
 import UtilsKit
+#endif
 
 /**
  Wrapper class to easily manage core data and entities with `CoreDataModel` protocol
